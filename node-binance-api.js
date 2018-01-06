@@ -152,6 +152,9 @@ module.exports = function() {
 				console.log("Parse error: "+error.message);
 			}
 		});
+		ws.on('error', function() {
+			console.log("Error when retrieving server data");
+		});
 		subscriptions[endpoint] = ws;
 		return ws;
 	};
