@@ -559,8 +559,8 @@ module.exports = function() {
 			}
 			return {open:open, high:high, low:low, close:close, volume:volume};
 		},
-		candlesticks: function(symbol, interval = "5m", callback) { //1m,3m,5m,15m,30m,1h,2h,4h,6h,8h,12h,1d,3d,1w,1M
-			publicRequest(base+"v1/klines", {symbol:symbol, interval:interval}, function(data) {
+		candlesticks: function(symbol, interval = "5m", limit, callback) { //1m,3m,5m,15m,30m,1h,2h,4h,6h,8h,12h,1d,3d,1w,1M
+			publicRequest(base+"v1/klines", {symbol:symbol, limit: limit, interval:interval}, function(data) {
 				return callback.call(this, data, symbol);
 			});
 		},
