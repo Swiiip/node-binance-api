@@ -21,7 +21,7 @@ module.exports = function() {
 	let klineQueue = {};
 	let info = {};
 	let ohlc = {};
-	let options = {recvWindow:60000, reconnect:true};
+	let options = {recvWindow:60000, reconnect:true, test: false};
 	
 	const publicRequest = function(url, data, callback, method = "GET") {
 		if ( !data ) data = {};
@@ -116,9 +116,11 @@ module.exports = function() {
 			opt.price = price;
 			opt.timeInForce = "GTC";
 		}
+		if ( typeof flags.timeInForce !== 'undefined' ) opt.timeInForce = flags.timeInForce;
 		if ( typeof flags.icebergQty !== "undefined" ) opt.icebergQty = flags.icebergQty;
 		if ( typeof flags.stopPrice !== "undefined" ) opt.stopPrice = flags.stopPrice;
-		signedRequest(base+"v3/order", opt, function(response) {
+		const url = base + "v3/order" + (options.test ? "/test" : "");
+		signedRequest(url, opt, function(response) {
 			if ( typeof response.msg !== "undefined" && response.msg == "Filter failure: MIN_NOTIONAL" ) {
 				console.log("Order quantity too small. Must be > 0.01");
 			}
