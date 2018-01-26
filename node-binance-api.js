@@ -650,9 +650,9 @@ module.exports = function() {
 			trades: function(symbols, callback) {
 				for ( let symbol of symbols ) {
 					let reconnect = function() {
-						if ( options.reconnect ) subscribe(symbol.toLowerCase()+"@aggTrade", callback);
+						if ( options.reconnect ) subscribe(symbol.toLowerCase()+"@trade", callback);
 					};
-					subscribe(symbol.toLowerCase()+"@aggTrade", callback, reconnect);
+					subscribe(symbol.toLowerCase()+"@trade", callback, reconnect);
 				}
 			},
 			chart: function chart(symbols, interval, callback) {
